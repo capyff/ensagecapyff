@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ namespace ChallengeAccepted
 {
     class ChallengeAccepted
     {
-        private static readonly Menu Menu = new Menu("Challenge Accepted", "ChallengeAccepted", true, "npc_dota_hero_legion_commander", true);
+        private static readonly Menu Menu = new Menu("Challenge Accepted", "ChallengeAccepted", true, "npc_dota_hero_doom_bringer", true);
         private static readonly Menu _item_config = new Menu("Duel Items", "Duel Items");
         private static readonly Menu _2_item_config = new Menu("Pop Linkens: ", "Pop Linkens: ");
         private static readonly Menu _3_item_config = new Menu("Mana/Health Itens: ", "Mana/Health Itens: ");
@@ -64,8 +64,8 @@ namespace ChallengeAccepted
             };
         private static readonly Dictionary<string, bool> skills = new Dictionary<string, bool>
             {
-                {"legion_commander_press_the_attack",true},
-                {"legion_commander_overwhelming_odds",true}
+                {"Doom_Bringer_press_the_attack",true},
+                {"Doom_Bringer_overwhelming_odds",true}
             };
         private static readonly Dictionary<string, bool> healormana_items = new Dictionary<string, bool>
             {
@@ -109,7 +109,7 @@ namespace ChallengeAccepted
             if (!Game.IsInGame || Game.IsPaused || Game.IsWatchingGame)
                 return;
             me = ObjectMgr.LocalHero;
-            if (me == null || me.ClassID != ClassID.CDOTA_Unit_Hero_Legion_Commander)
+            if (me == null || me.ClassID != ClassID.CDOTA_Unit_Hero_Doom_Bringer)
                 return;
             if (Game.IsKeyDown(Menu.Item("Black King Bar Toggle").GetValue<KeyBind>().Key) && !Game.IsChatOpen && Utils.SleepCheck("BKBTOGGLE"))
             {
@@ -321,18 +321,18 @@ namespace ChallengeAccepted
         {
             if (me.Modifiers
                 .Any(x =>
-                (x.Name == "modifier_tinker_laser_blind" && !me.Inventory.Items.Any(y => y.Name == "item_monkey_king_bar"))
-                || (x.Name == "modifier_troll_warlord_whirling_axes_blind" && !me.Inventory.Items.Any(y => y.Name == "item_monkey_king_bar"))
-                || x.Name == "modifier_pugna_decrepify")
-                || v.Modifiers.Any(x => x.Name == "modifier_omninight_guardian_angel"
-                || x.Name == "modifier_pugna_decrepify"
-                || (x.Name == "modifier_windrunner_windrun" && !me.Inventory.Items.Any(y => y.Name == "item_monkey_king_bar"))
-                || x.Name == "modifier_winter_wyverny_cold_embrace"
-                /*|| x.Name == "modifier_ghost_state" 
-                || x.Name == "modifier_item_ethereal_blade_ethereal" 
-                || x.Name == "modifier_item_ethereal_blade_ethereal"*/))
+                (x.Name == "" && !me.Inventory.Items.Any(y => y.Name == ""))
+                || (x.Name == "" && !me.Inventory.Items.Any(y => y.Name == ""))
+                || x.Name == "")
+                || v.Modifiers.Any(x => x.Name == ""
+                || x.Name == ""
+                || (x.Name == "" && !me.Inventory.Items.Any(y => y.Name == ""))
+                || x.Name == ""
+                /*|| x.Name == "" 
+                || x.Name == "" 
+                || x.Name == ""*/))
             {
-                if (Heal.CanBeCasted() && me.Modifiers.Any(x => (x.Name == "modifier_tinker_laser_blind" && !me.Inventory.Items.Any(y => y.Name == "item_monkey_king_bar")) || (x.Name == "modifier_troll_warlord_whirling_axes_blind" && !me.Inventory.Items.Any(y => y.Name == "item_monkey_king_bar")) || x.Name == "modifier_pugna_decrepify"))
+                if (Heal.CanBeCasted() && me.Modifiers.Any(x => (x.Name == "" && !me.Inventory.Items.Any(y => y.Name == "")) || (x.Name == "" && !me.Inventory.Items.Any(y => y.Name == "")) || x.Name == ""))
                 {
                     if (me.CanCast())
                     {
@@ -342,8 +342,8 @@ namespace ChallengeAccepted
                     else
                         return false;
                 }
-                else if (difusal != null && difusal.CanBeCasted() && v.Modifiers.Any(x => x.Name == "modifier_omninight_guardian_angel"
-                 || x.Name == "modifier_pugna_decrepify"))
+                else if (difusal != null && difusal.CanBeCasted() && v.Modifiers.Any(x => x.Name == ""
+                 || x.Name == ""))
                 {
                     if (Utils.SleepCheck("difusalsleep"))
                     {
@@ -499,7 +499,7 @@ namespace ChallengeAccepted
             me = ObjectMgr.LocalHero;
             if (me == null)
                 return;
-            if (me.ClassID != ClassID.CDOTA_Unit_Hero_Legion_Commander)
+            if (me.ClassID != ClassID.CDOTA_Unit_Hero_Doom_Bringer)
                 return;
             target = me.ClosestToMouseTarget(50000);
             if(target != null)
